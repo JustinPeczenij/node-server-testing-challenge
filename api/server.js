@@ -15,6 +15,15 @@ server.post('/api/users', async (req, res, next) => {
     }
 })
 
+server.delete('/api/users', async (req, res, next) => {
+    try {
+        await Users.remove(req.body)
+        res.status(200).json(`${req.body} has been deleted`)
+    } catch(err) {
+        next(err)
+    }
+})
+
 server.use((err, req, res, next) => { //eslint-disable-line
     res.status(err.status || 500).json({
         message: err.message,
